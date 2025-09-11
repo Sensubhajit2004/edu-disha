@@ -4,13 +4,39 @@ import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/f
 import { colleges } from './data.js';
 import { showSection } from './ui.js';
 
+const profileForm = document.getElementById('profile-form');
+const saveProfileBtn = document.getElementById('save-profile-btn');
+const editProfileBtn = document.getElementById('edit-profile-btn');
+const formInputs = profileForm.querySelectorAll('input, select');
+
+// --- PROFILE FORM MANAGEMENT ---
+
+// Function to enable editing of the profile form
+function enableProfileEditing() {
+    formInputs.forEach(input => {
+        input.disabled = false;
+    });
+    saveProfileBtn.classList.remove('hidden');
+    editProfileBtn.classList.add('hidden');
+}
+
+// Function to disable editing of the profile form
+function disableProfileEditing() {
+    formInputs.forEach(input => {
+        input.disabled = true;
+    });
+    saveProfileBtn.classList.add('hidden');
+    editProfileBtn.classList.remove('hidden');
+}
+
+// --- FIRESTORE FUNCTIONS ---
+
 // Function to save a college to the user's list in Firestore.
 export async function saveCollege(collegeId) {
     const user = auth.currentUser;
-    // If user isn't logged in, send them to the login page.
     if (!user || user.isAnonymous) {
         showSection('login-section');
-        document.getElementById('detail-modal').style.display = 'none'; // Close modal
+        document.getElementById('detail-modal').style.display = 'none';
         return;
     }
 
@@ -29,10 +55,9 @@ export async function saveCollege(collegeId) {
 
         if (!savedColleges.includes(collegeId)) {
             savedColleges.push(collegeId);
-            // Use setDoc with merge to create or update the document
             await setDoc(userDocRef, { savedColleges }, { merge: true });
             saveBtn.textContent = 'Saved!';
-            loadStudentDashboard(user.uid); // Refresh dashboard in the background
+            loadStudentDashboard(user.uid);
         } else {
             saveBtn.textContent = 'Already Saved';
         }
@@ -41,7 +66,6 @@ export async function saveCollege(collegeId) {
         saveBtn.textContent = 'Error!';
     }
 
-    // Close the modal after a short delay
     setTimeout(() => {
         document.getElementById('detail-modal').style.display = 'none';
     }, 1200);
@@ -59,7 +83,7 @@ async function removeSavedCollege(collegeId) {
             let savedColleges = docSnap.data().savedColleges || [];
             const updatedColleges = savedColleges.filter(id => id !== collegeId);
             await setDoc(userDocRef, { savedColleges: updatedColleges }, { merge: true });
-            loadStudentDashboard(user.uid); // Refresh the list
+            loadStudentDashboard(user.uid);
         }
     } catch (error) {
         console.error("Error removing college:", error);
@@ -68,23 +92,18 @@ async function removeSavedCollege(collegeId) {
 
 // Main function to load all dashboard data from Firestore
 export async function loadStudentDashboard(userId) {
-    if (!userId) {
-        console.log("No user ID provided to load dashboard.");
-        return;
-    }
+    if (!userId) return;
 
     const userDocRef = doc(db, "students", userId);
     const docSnap = await getDoc(userDocRef);
 
     if (docSnap.exists()) {
         const data = docSnap.data();
-        // Populate profile form
         document.getElementById('student-name').value = data.name || '';
         document.getElementById('student-age').value = data.age || '';
         document.getElementById('student-gender').value = data.gender || '';
         document.getElementById('student-location').value = data.location || '';
 
-        // Populate saved colleges list
         const savedCollegesList = document.getElementById('saved-colleges-list');
         if (data.savedColleges && data.savedColleges.length > 0) {
             savedCollegesList.innerHTML = '';
@@ -109,17 +128,19 @@ export async function loadStudentDashboard(userId) {
     } else {
          document.getElementById('saved-colleges-list').innerHTML = '<p class="text-slate-500">You haven\'t saved any colleges yet. Save your profile to get started!</p>';
     }
+    
+    // Ensure the form is not editable on load
+    disableProfileEditing();
 }
 
-// Sets up the event listener for the profile form submission
+// Sets up the event listeners for the dashboard buttons
 export function initDashboard() {
-    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    editProfileBtn.addEventListener('click', enableProfileEditing);
+    
+    profileForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const user = auth.currentUser;
-        if (!user) {
-            console.error("No user logged in to save profile.");
-            return;
-        }
+        if (!user) return;
 
         const profileData = {
             name: document.getElementById('student-name').value,
@@ -128,23 +149,24 @@ export function initDashboard() {
             location: document.getElementById('student-location').value
         };
 
-        const saveBtn = document.getElementById('save-profile-btn');
-        saveBtn.textContent = 'Saving...';
-        saveBtn.disabled = true;
+        saveProfileBtn.textContent = 'Saving...';
+        saveProfileBtn.disabled = true;
 
         try {
             await setDoc(doc(db, "students", user.uid), profileData, { merge: true });
-            saveBtn.textContent = 'Profile Saved!';
+            saveProfileBtn.textContent = 'Profile Saved!';
+            // After saving successfully, disable the form again
+            disableProfileEditing();
             setTimeout(() => { 
-                saveBtn.textContent = 'Save Profile';
-                saveBtn.disabled = false;
+                saveProfileBtn.textContent = 'Save Changes';
+                saveProfileBtn.disabled = false;
             }, 2000);
         } catch (error) {
             console.error("Error saving profile: ", error);
-            saveBtn.textContent = 'Error Saving!';
-            setTimeout(() => {
-                saveBtn.textContent = 'Save Profile';
-                saveBtn.disabled = false;
+            saveProfileBtn.textContent = 'Error Saving!';
+             setTimeout(() => {
+                saveProfileBtn.textContent = 'Save Changes';
+                saveProfileBtn.disabled = false;
             }, 2000);
         }
     });

@@ -159,24 +159,34 @@
         </section>
 
         <!-- Dashboard Section -->
-        <section id="dashboard-section" class="hidden main-content-card">
+        <section id="dashboard-section" class="hidden-section main-content-card">
             <h2 class="section-title">Student Dashboard</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
                 <!-- Profile Section -->
+                                <!-- START of new profile section code -->
                 <div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-4">Your Profile</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">Your Profile</h3>
+                        <button id="edit-profile-btn" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                            </svg>
+                            Edit Profile
+                        </button>
+                    </div>
                     <form id="profile-form" class="space-y-4">
                         <div>
                             <label for="student-name" class="block text-sm font-medium text-slate-700">Name</label>
-                            <input type="text" id="student-name" class="mt-1 filter-input" placeholder="Enter your full name">
+                            <input type="text" id="student-name" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="Enter your full name" disabled>
                         </div>
                         <div>
                             <label for="student-age" class="block text-sm font-medium text-slate-700">Age</label>
-                            <input type="number" id="student-age" class="mt-1 filter-input" placeholder="Enter your age">
+                            <input type="number" id="student-age" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="Enter your age" disabled>
                         </div>
                         <div>
                             <label for="student-gender" class="block text-sm font-medium text-slate-700">Gender</label>
-                            <select id="student-gender" class="mt-1 filter-input">
+                            <select id="student-gender" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" disabled>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -185,11 +195,12 @@
                         </div>
                         <div>
                             <label for="student-location" class="block text-sm font-medium text-slate-700">Location</label>
-                            <input type="text" id="student-location" class="mt-1 filter-input" placeholder="e.g., Kolkata, West Bengal">
+                            <input type="text" id="student-location" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="e.g., Kolkata, West Bengal" disabled>
                         </div>
-                        <button type="submit" id="save-profile-btn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors">Save Profile</button>
+                        <button type="submit" id="save-profile-btn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors hidden">Save Changes</button>
                     </form>
                 </div>
+                <!-- END of new profile section code -->
                 <!-- Saved Colleges Section -->
                 <div>
                     <h3 class="text-xl font-bold text-slate-800 mb-4">Saved Colleges</h3>
