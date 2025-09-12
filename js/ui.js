@@ -1,17 +1,21 @@
-// js/ui.js
 const modal = document.getElementById('detail-modal');
 const modalContent = document.getElementById('modal-content');
 
 export function showSection(sectionId) {
-    document.querySelectorAll('main > section').forEach(section => {
-        section.classList.toggle('hidden', section.id !== sectionId);
+    const sections = document.querySelectorAll('main > section');
+    sections.forEach(section => {
+        if (section.id === sectionId) {
+            section.classList.remove('hidden');
+        } else {
+            section.classList.add('hidden');
+        }
     });
     window.scrollTo(0, 0);
     document.getElementById('mobile-menu').classList.add('hidden');
 }
 
-export function showDetailModal(content) {
-    modalContent.innerHTML = content;
+export function showDetailModal(contentHtml) {
+    modalContent.innerHTML = contentHtml;
     modal.style.display = 'flex';
 }
 

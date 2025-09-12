@@ -1,4 +1,3 @@
-// js/firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
@@ -10,7 +9,7 @@ const firebaseConfig = {
   projectId: "edudisha-webapp",
   storageBucket: "edudisha-webapp.firebasestorage.app",
   messagingSenderId: "404187603792",
-  appId: "1:4041876-2:web:cc86b74b1bb8f9968e0255",
+  appId: "1:404187603792:web:cc86b74b1bb8f9968e0255",
   measurementId: "G-NZRN2KGCWV"
 };
 

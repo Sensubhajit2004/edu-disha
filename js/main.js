@@ -1,13 +1,12 @@
-// js/main.js
 import { showSection, initModal } from './ui.js';
 import { initAuth } from './auth.js';
 import { initQuiz } from './quiz.js';
-import { initColleges } from './colleges.js';
+import { initColleges, listenForCollegeUpdates } from './colleges.js';
 import { initCareers } from './careers.js';
 import { initDashboard } from './dashboard.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all modules
+    // Initialize all modules that set up event listeners or initial content
     initModal();
     initAuth();
     initQuiz();
@@ -15,7 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initCareers();
     initDashboard();
 
-    // Setup Navigation
+    // Start listening for real-time college updates from Firestore
+    listenForCollegeUpdates();
+
+    // Setup Navigation event listeners
     document.getElementById('home-link').addEventListener('click', (e) => { e.preventDefault(); showSection('home-section'); });
     document.querySelectorAll('#nav-colleges, #mobile-nav-colleges').forEach(el => el.addEventListener('click', (e) => { e.preventDefault(); showSection('colleges-section'); }));
     document.querySelectorAll('#nav-careers, #mobile-nav-careers').forEach(el => el.addEventListener('click', (e) => { e.preventDefault(); showSection('careers-section'); }));
@@ -30,6 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('mobile-menu').classList.toggle('hidden');
     });
 
-    // Show the initial home section
+    // Show the initial home section on page load
     showSection('home-section');
 });

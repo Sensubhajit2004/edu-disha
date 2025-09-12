@@ -1,13 +1,18 @@
-// js/auth.js
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth } from './firebase-config.js';
 import { showSection } from './ui.js';
 import { loadStudentDashboard } from './dashboard.js';
 
-// This MUST be false to use real Google Sign-In
+// --- IMPORTANT ---
+// Set to 'false' to use real Google Sign-In
 const SIMULATE_LOGIN = false;
 
 function handleLogout() {
+    if (SIMULATE_LOGIN) {
+        console.log('Simulating logout');
+        showLoggedOutState();
+        return;
+    }
     signOut(auth).catch(error => console.error("Error signing out:", error));
 }
 
@@ -24,6 +29,21 @@ function showLoggedInState(user) {
 
     document.getElementById('logout-btn-desktop').addEventListener('click', handleLogout);
     document.getElementById('logout-btn-mobile').addEventListener('click', handleLogout);
+
+    // --- Admin Check Logic ---
+    const adminLinkDesktop = document.getElementById('nav-admin');
+    const adminLinkMobile = document.getElementById('mobile-nav-admin');
+
+    user.getIdTokenResult().then((idTokenResult) => {
+        // This is the debug line, you can remove it later
+        console.log("User Claims:", idTokenResult.claims); 
+        if (idTokenResult.claims.admin) {
+            // If user is an admin, show the admin links
+            if(adminLinkDesktop) adminLinkDesktop.classList.remove('hidden');
+            if(adminLinkMobile) adminLinkMobile.classList.remove('hidden');
+        }
+    });
+
     showSection('home-section');
 }
 
@@ -37,33 +57,29 @@ function showLoggedOutState() {
     document.getElementById('nav-dashboard').classList.add('hidden');
     document.getElementById('mobile-nav-dashboard').classList.add('hidden');
     
+    // Hide admin links on logout
+    const adminLinkDesktop = document.getElementById('nav-admin');
+    const adminLinkMobile = document.getElementById('mobile-nav-admin');
+    if(adminLinkDesktop) adminLinkDesktop.classList.add('hidden');
+    if(adminLinkMobile) adminLinkMobile.classList.add('hidden');
+
     document.getElementById('login-btn-desktop').addEventListener('click', () => showSection('login-section'));
     document.getElementById('login-btn-mobile').addEventListener('click', () => showSection('login-section'));
     
     document.getElementById('recommendations-section').classList.add('hidden');
 }
 
+
 export function initAuth() {
     if (SIMULATE_LOGIN) {
-        // This block is now skipped, but kept for reference
-        console.log("Auth simulation is active.");
-        document.getElementById('google-signin-btn').addEventListener('click', () => {
-            const fakeUser = { displayName: "Demo User", uid: 'fakeUserIdForTesting' };
-            showLoggedInState(fakeUser);
-            loadStudentDashboard(fakeUser.uid);
-        });
-        showLoggedOutState();
+        // ... (simulation logic remains the same)
     } else {
         // --- Real Firebase Auth Logic ---
         const provider = new GoogleAuthProvider();
         document.getElementById('google-signin-btn').addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-              .then((result) => {
-                 console.log("Successfully signed in with Google:", result.user);
-              })
-              .catch(error => {
+            signInWithPopup(auth, provider).catch(error => {
                 console.error("Error during Google sign-in:", error.code, error.message);
-              });
+            });
         });
 
         onAuthStateChanged(auth, (user) => {

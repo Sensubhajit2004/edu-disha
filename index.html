@@ -13,7 +13,6 @@
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
     <script>
-        // Tailwind Configuration
         tailwind.config = {
             theme: {
                 extend: {
@@ -28,34 +27,43 @@
 <body class="bg-slate-50 font-sans text-slate-800">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-indigo-600" id="home-link">EduDisha</a>
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#colleges" class="nav-link" id="nav-colleges">Find Colleges</a>
-                <a href="#careers" class="nav-link" id="nav-careers">Career Paths</a>
-                <a href="#quiz" class="nav-link" id="nav-quiz">Aptitude Test</a>
-                <a href="#dashboard" class="nav-link hidden" id="nav-dashboard">Dashboard</a>
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-indigo-600" id="home-link">EduDisha</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="nav-link" id="nav-colleges">Find Colleges</a>
+                    <a href="#" class="nav-link" id="nav-careers">Career Paths</a>
+                    <a href="#" class="nav-link" id="nav-quiz">Aptitude Test</a>
+                    <a href="#" class="nav-link hidden" id="nav-dashboard">Dashboard</a>
+                    <a href="admin.html" class="nav-link hidden" id="nav-admin">Admin Panel</a>
+                </div>
+
+                <div id="auth-container-desktop" class="hidden md:flex items-center">
+                    <button id="login-btn-desktop" class="auth-button">Login</button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+                <a href="#" class="mobile-nav-link" id="mobile-nav-colleges">Find Colleges</a>
+                <a href="#" class="mobile-nav-link" id="mobile-nav-careers">Career Paths</a>
+                <a href="#" class="mobile-nav-link" id="mobile-nav-quiz">Aptitude Test</a>
+                <a href="#" class="mobile-nav-link hidden" id="mobile-nav-dashboard">Dashboard</a>
+                <a href="admin.html" class="mobile-nav-link hidden" id="mobile-nav-admin">Admin Panel</a>
+                <div id="auth-container-mobile" class="p-4">
+                    <button id="login-btn-mobile" class="w-full auth-button">Login</button>
+                </div>
             </div>
-            <div id="auth-container-desktop" class="hidden md:flex items-center">
-                 <button id="login-btn-desktop" class="auth-button">Login</button>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
-            <a href="#colleges" class="mobile-nav-link" id="mobile-nav-colleges">Find Colleges</a>
-            <a href="#careers" class="mobile-nav-link" id="mobile-nav-careers">Career Paths</a>
-            <a href="#quiz" class="mobile-nav-link" id="mobile-nav-quiz">Aptitude Test</a>
-            <a href="#dashboard" class="mobile-nav-link hidden" id="mobile-nav-dashboard">Dashboard</a>
-            <div id="auth-container-mobile" class="p-4">
-                <button id="login-btn-mobile" class="w-full auth-button">Login</button>
-            </div>
-        </div>
-    </header>
+        </header>
 
     <main class="container mx-auto p-4 md:p-8">
         
@@ -91,7 +99,7 @@
                     <p class="text-slate-600">Visualize your future with clear charts showing jobs and higher studies for each degree.</p>
                 </div>
             </div>
-            <div id="recommendations-section" class="mt-12 hidden-section">
+            <div id="recommendations-section" class="mt-12 hidden">
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-6">Based on Your Test Results</h2>
                 <div id="recommendations-content" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </div>
@@ -101,7 +109,6 @@
         <section id="quiz-section" class="hidden main-content-card">
             <h2 class="section-title">Career Aptitude Test</h2>
             <p class="section-subtitle">Answer these 5 questions honestly to get your personalized recommendation.</p>
-            <!-- Progress Bar -->
             <div class="w-full bg-slate-200 rounded-full h-2.5 mb-8">
                 <div id="quiz-progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
             </div>
@@ -144,7 +151,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="career-path-list"></div>
         </section>
 
-        <section id="login-section" class="hidden-section flex items-center justify-center py-12">
+        <section id="login-section" class="hidden flex items-center justify-center py-12">
             <div class="main-content-card max-w-md w-full text-center">
                 <h2 class="section-title">Join EduDisha</h2>
                 <p class="section-subtitle">Sign in to save your progress and get personalized recommendations.</p>
@@ -159,34 +166,27 @@
         </section>
 
         <!-- Dashboard Section -->
-        <section id="dashboard-section" class="hidden-section main-content-card">
+        <section id="dashboard-section" class="hidden main-content-card">
             <h2 class="section-title">Student Dashboard</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
                 <!-- Profile Section -->
-                                <!-- START of new profile section code -->
-                <div>
+                <div id="profile-container">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xl font-bold text-slate-800">Your Profile</h3>
-                        <button id="edit-profile-btn" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                            </svg>
-                            Edit Profile
-                        </button>
+                        <button id="edit-profile-btn" class="text-sm font-semibold text-indigo-600 hover:underline">Edit</button>
                     </div>
                     <form id="profile-form" class="space-y-4">
                         <div>
                             <label for="student-name" class="block text-sm font-medium text-slate-700">Name</label>
-                            <input type="text" id="student-name" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="Enter your full name" disabled>
+                            <input type="text" id="student-name" class="mt-1 filter-input" placeholder="Enter your full name" readonly>
                         </div>
                         <div>
                             <label for="student-age" class="block text-sm font-medium text-slate-700">Age</label>
-                            <input type="number" id="student-age" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="Enter your age" disabled>
+                            <input type="number" id="student-age" class="mt-1 filter-input" placeholder="Enter your age" readonly>
                         </div>
                         <div>
                             <label for="student-gender" class="block text-sm font-medium text-slate-700">Gender</label>
-                            <select id="student-gender" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" disabled>
+                            <select id="student-gender" class="mt-1 filter-input" disabled>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -195,18 +195,16 @@
                         </div>
                         <div>
                             <label for="student-location" class="block text-sm font-medium text-slate-700">Location</label>
-                            <input type="text" id="student-location" class="mt-1 filter-input disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="e.g., Kolkata, West Bengal" disabled>
+                            <input type="text" id="student-location" class="mt-1 filter-input" placeholder="e.g., Kolkata, West Bengal" readonly>
                         </div>
-                        <button type="submit" id="save-profile-btn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors hidden">Save Changes</button>
+                        <button type="submit" id="save-profile-btn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors hidden">Save Profile</button>
                     </form>
                 </div>
-                <!-- END of new profile section code -->
                 <!-- Saved Colleges Section -->
                 <div>
                     <h3 class="text-xl font-bold text-slate-800 mb-4">Saved Colleges</h3>
                     <div id="saved-colleges-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
                         <p class="text-slate-500">You haven't saved any colleges yet. Explore the college directory and save your favorites!</p>
-                        <!-- Saved colleges will be populated here -->
                     </div>
                 </div>
             </div>
@@ -231,8 +229,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript File -->
-   <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 
 </body>
 </html>

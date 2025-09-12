@@ -1,12 +1,17 @@
 /* ==========================================================================
-   EduDisha - Enhanced Stylesheet
+   EduDisha - Government Theme Stylesheet
    ========================================================================== */
 
 /* --- General & Scrollbar --- */
 body {
-    background-color: #f8fafc;
-    color: #1e293b;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #212529; /* Darker text for better contrast */
+    font-family: 'Roboto', 'Inter', sans-serif; /* Prioritizing a more standard font */
+    /* --- New Background Image --- */
+    background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 body.dark {
@@ -19,17 +24,17 @@ body.dark {
 }
 
 ::-webkit-scrollbar-track {
-    background: #e2e8f0;
+    background: #e9ecef;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #6366f1;
+    background: #0d6efd; /* Primary blue for scrollbar */
     border-radius: 10px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #e9ecef;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #4f46e5;
+    background: #0b5ed7; /* Darker blue on hover */
 }
 
 .hidden {
@@ -40,13 +45,13 @@ body.dark {
 .nav-link {
     position: relative;
     padding: 0.25rem 0;
-    color: #475569;
+    color: #495057;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-    color: #4f46e5;
+    color: #0d6efd;
 }
 
 .nav-link::after {
@@ -56,7 +61,7 @@ body.dark {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #4f46e5;
+    background-color: #0d6efd;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
@@ -69,14 +74,14 @@ body.dark {
 .mobile-nav-link {
     display: block;
     padding: 0.75rem 1.5rem;
-    color: #334155;
+    color: #343a40;
     font-weight: 500;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .mobile-nav-link:hover {
-    background-color: #eef2ff;
-    color: #4338ca;
+    background-color: #e7f1ff;
+    color: #0a58ca;
 }
 
 /* --- Buttons --- */
@@ -84,41 +89,44 @@ body.dark {
 .primary-button,
 .logout-button,
 .google-signin-button {
-    border-radius: 9999px;
+    border-radius: 0.375rem; /* Less rounded corners */
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
 }
 
 .auth-button:hover,
 .primary-button:hover {
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    transform: translateY(-4px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
 }
 
 .auth-button:active,
 .primary-button:active {
-    transform: scale(0.95);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    transform: scale(0.98);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .auth-button,
 .primary-button {
-    background-image: linear-gradient(to right, #4f46e5, #9333ea);
+    background-color: #0d6efd; /* Solid blue background */
     color: white;
     padding: 0.75rem 2rem;
+    border-color: #0d6efd;
 }
 
 .auth-button:hover,
 .primary-button:hover {
-    background-image: linear-gradient(to right, #6366f1, #a855f7);
+    background-color: #0b5ed7; /* Darker blue on hover */
+    border-color: #0a58ca;
 }
 
 .google-signin-button {
     width: 100%;
     background-color: white;
-    border: 2px solid #cbd5e1;
-    color: #334155;
+    border: 1px solid #ced4da;
+    color: #495057;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     display: flex;
@@ -129,66 +137,71 @@ body.dark {
 }
 
 .google-signin-button:hover {
-    background-color: #f8fafc;
-    border-color: #6366f1;
-    color: #4f46e5;
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+    color: #0d6efd;
 }
 
 .logout-button {
-    background-image: linear-gradient(to right, #ef4444, #f97316);
+    background-color: #6c757d; /* Muted grey for logout */
+    border-color: #6c757d;
     color: white;
     font-weight: 500;
     padding: 0.5rem 1.5rem;
 }
 
+.logout-button:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+
 /* --- Cards & Layout --- */
 .feature-card {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    backdrop-filter: blur(8px); /* Frosted glass effect */
     padding: 1.5rem;
-    border-radius: 1rem;
-    border: 1px solid #cbd5e1;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: all 0.3s ease-in-out;
-    animation: fadeUp 0.4s ease-out;
 }
 
 .feature-card:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    transform: translateY(-6px);
-    border-color: #6366f1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    border-color: #0d6efd;
 }
 
 .feature-icon {
     height: 3rem;
     width: 3rem;
     padding: 0.5rem;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .main-content-card {
-    background-color: white;
-    border-radius: 1.5rem;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    backdrop-filter: blur(8px); /* Frosted glass effect */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     padding: 2rem;
-    border: 1px solid #cbd5e1;
+    border: 1px solid #dee2e6;
 }
 
 /* --- Typography --- */
 .section-title {
     font-size: 2rem;
-    font-weight: 800;
+    font-weight: 700; /* Slightly less bold */
     text-align: center;
     margin-bottom: 0.5rem;
-    background-image: linear-gradient(to right, #4338ca, #1e293b);
-    -webkit-background-clip: text;
-    color: transparent;
+    color: #003366; /* Official dark blue */
 }
 
 .section-subtitle {
     text-align: center;
-    color: #64748b;
+    color: #343a40; /* Darker text for readability on image */
     margin-bottom: 2rem;
     max-width: 40rem;
     margin-left: auto;
@@ -199,15 +212,15 @@ body.dark {
 .filter-input {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #cbd5e1;
-    border-radius: 0.75rem;
-    transition: all 0.3s ease;
+    border: 1px solid #ced4da; /* Standard input border */
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
 }
 
 .filter-input:focus {
     outline: none;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.3);
+    border-color: #86b7fe; /* Lighter blue focus ring */
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
 }
 
 /* --- Aptitude Test Enhancements --- */
@@ -226,8 +239,8 @@ body.dark {
 
 .quiz-option {
     display: block;
-    border: 2px solid #cbd5e1;
-    border-radius: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
     padding: 1rem;
     margin-bottom: 0.75rem;
     cursor: pointer;
@@ -235,8 +248,8 @@ body.dark {
 }
 
 .quiz-option:hover {
-    background-color: #eef2ff;
-    border-color: #6366f1;
+    background-color: #e7f1ff;
+    border-color: #0d6efd;
 }
 
 .quiz-option input[type="radio"] {
@@ -245,13 +258,13 @@ body.dark {
 
 .quiz-option input[type="radio"]:checked + span {
     font-weight: 600;
-    color: #4f46e5;
+    color: #0d6efd;
 }
 
 .quiz-option-selected {
-    background-color: #e0e7ff;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.3);
+    background-color: #e7f1ff;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
     position: relative;
 }
 
@@ -261,7 +274,7 @@ body.dark {
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #4f46e5;
+    color: #0d6efd;
     font-weight: bold;
     font-size: 1.25rem;
     transition: opacity 0.3s ease;
@@ -272,12 +285,11 @@ body.dark {
 .login-card {
     background-color: white;
     padding: 2rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-    border: 1px solid #f1f5f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
     max-width: 28rem;
     margin: 0 auto;
-    background-image: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
 }
 
 .google-signin-button img {
@@ -291,7 +303,7 @@ body.dark {
 }
 
 .back-link {
-    color: #64748b;
+    color: #6c757d;
     font-weight: 500;
     transition: color 0.3s ease;
     display: inline-flex;
@@ -304,5 +316,36 @@ body.dark {
 }
 
 .back-link:hover {
-    color: #4f46e5;
+    color: #0d6efd;
+}
+
+/* --- Admin Panel Styles --- */
+#admin-container .form-label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+#admin-container .form-input {
+    display: block;
+    width: 100%;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#admin-container .form-input:focus {
+    outline: none;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
+}
+
+#admin-container #college-list-container > div {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
 }
